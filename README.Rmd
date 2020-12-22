@@ -1,0 +1,51 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# theoddsapi
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+theoddsapi package provides a convenient wrapper for [the Odds API](https://the-odds-api.com/). The principal function `get_odds` provides a convenient, simple interface which allows you to leverage the API to pull odds from various different sports, books, and market types into nice, tidy tibbles.
+
+## Installation
+
+You can install the theoddsapi from GitHub with:
+
+``` r
+devtools::install_github("d-edison/theoddsapi")
+```
+
+## Configuration
+
+In order to use this R package, you must first generate an API key (A free tier is available which grants 500 requests per month). To generate the key, navigate to [the Odds API's website](https://the-odds-api.com/) and click the "Get API Key" button. From there, you simply follow the instructions to get your key emailed to you. 
+
+Once you have your key it is **highly recommded** to configure the R environment variable `THEODDS_API_KEY`. To do this, call either `Sys.setenv(THEODDS_API_KEY = "<your_key>")` or edit your `.Renviron` file.
+
+## Usage
+
+```{r attach}
+library(theoddsapi)
+
+# get all of the sports available
+get_sports()
+
+# find out how many requests are remaining
+get_remaining_requests()
+
+# make a request to get odds
+get_odds("basketball_nba", mkt = "spreads")
+```
+
