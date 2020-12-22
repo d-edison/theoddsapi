@@ -1,14 +1,33 @@
 Package: theoddsapi
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: An R Wrapper for the Odds API
+Version: 0.1.0
 Authors@R: 
     person(given = "David",
            family = "Edison",
            role = c("aut", "cre"),
-           email = "david.edison@nordstrom.com")
-Description: What the package does (one paragraph).
-License: file LICENSE
+           email = "davidedison15@gmail.com")
+Description: This package provides tools for interacting 
+    with the Odds API and returning results as tidy 
+    tibbles.
+License: MIT + file LICENSE
+URL: https://github.com/d-edison/theoddsapi
+    https://the-odds-api.com/
+BugReports: https://github.com/d-edison/theoddsapi
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports: 
+    httr (>= 1.4.0),
+    magrittr (>= 1.5.0),
+    purrr (>= 0.3.0),
+    dplyr (>= 1.0.0),
+    tibble (>= 3.0.0),
+    tidyr (>= 1.0.0),
+    anytime
+Depends: 
+    R (>= 3.0.0)
+Suggests: 
+    testthat (>= 3.0.0),
+    mockery
+Config/testthat/edition: 3
