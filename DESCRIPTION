@@ -1,14 +1,13 @@
 Package: theoddsapi
-Title: An R Wrapper for the Odds API
+Title: A Wrapper for the Odds API
 Version: 0.1.0
 Authors@R: 
     person(given = "David",
            family = "Edison",
            role = c("aut", "cre"),
            email = "davidedison15@gmail.com")
-Description: This package provides tools for interacting 
-    with the Odds API and returning results as tidy 
-    tibbles.
+Description: Provide tools for interacting with
+    the Odds API and returning results as tidy tibbles.
 License: MIT + file LICENSE
 URL: https://github.com/d-edison/theoddsapi
     https://the-odds-api.com/
