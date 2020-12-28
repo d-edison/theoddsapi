@@ -32,7 +32,7 @@ devtools::install_github("d-edison/theoddsapi")
 
 In order to use this R package, you must first generate an API key (A free tier is available which grants 500 requests per month). To generate the key, navigate to [the Odds API's website](https://the-odds-api.com/) and click the "Get API Key" button. From there, you simply follow the instructions to get your key emailed to you. 
 
-Once you have your key it is **highly recommded** to configure the R environment variable `THEODDS_API_KEY`. To do this, call either `Sys.setenv(THEODDS_API_KEY = "<your_key>")` or edit your `.Renviron` file.
+Once you have your key it is **highly recommended** to configure the R environment variable `THEODDS_API_KEY`. To do this, call either `Sys.setenv(THEODDS_API_KEY = "<your_key>")` or edit your `.Renviron` file.
 
 ## Usage
 

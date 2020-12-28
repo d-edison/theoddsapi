@@ -9,7 +9,7 @@
 #'   Odds API's website](https://the-odds-api.com/). By default,
 #'   \code{api_key} is set to \code{Sys.getenv("THEODDS_API_KEY")}. It is highly
 #'   recommended to configure this environment variable before using this
-#'   package, both for convenience and to avoid surfacing your key as plaintext
+#'   package, both for convenience and to avoid surfacing your key as plain text
 #'   in a script
 #'
 #' @return

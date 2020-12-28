@@ -10,7 +10,7 @@ get_sports(api_key = Sys.getenv("THEODDS_API_KEY"))
 \item{api_key}{The API key for The Odds API -- A key can be obtained at \href{https://the-odds-api.com/}{the Odds API's website}. By default,
 \code{api_key} is set to \code{Sys.getenv("THEODDS_API_KEY")}. It is highly
 recommended to configure this environment variable before using this
-package, both for convenience and to avoid surfacing your key as plaintext
+package, both for convenience and to avoid surfacing your key as plain text
 in a script}
 }
 \value{

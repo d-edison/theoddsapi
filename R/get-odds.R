@@ -179,20 +179,20 @@ get_odds_raw <- function(sport = "upcoming",
 #'   States). Defaults to "us"
 #' @param mkt Determines which odds market is returned. Valid markets are "h2h"
 #'   (head to head / moneyline), "spreads" (handicaps) and "totals" (over/under).
-#'   spreads and totals odds are not always as comprehensive as h2h, so they do
+#'   "spreads" and "totals" odds are not always as comprehensive as "h2h", so they do
 #'   not count against the usage quota on paid plans. Defaults to "h2h"
 #' @param date_format  Determines the format of timestamps in the response.
 #'   Valid values are "unix" and "iso" (ISO 8601). Defaults to "unix"
 #' @param odds_format Determines the format of odds in the response.
 #'   Valid values are "decimal" and "american". When set to
-#'   american, small discrepancies might exist for some bookmakers due to
-#'   rounding errors. Currently, this package does not support american odds,
+#'   "american", small discrepancies might exist for some bookmakers due to
+#'   rounding errors. Currently, this package does not support "american" odds,
 #'   but hopefully will in the near future
 #' @param api_key The API key for The Odds API -- A key can be obtained at [the
 #'   Odds API's website](https://the-odds-api.com/). By default,
 #'   \code{api_key} is set to \code{Sys.getenv("THEODDS_API_KEY")}. It is highly
 #'   recommended to configure this environment variable before using this
-#'   package, both for convenience and to avoid surfacing your key as plaintext
+#'   package, both for convenience and to avoid surfacing your key as plain text
 #'   in a script
 #'
 #' @return

@@ -29,5 +29,7 @@ Depends:
     R (>= 3.0.0)
 Suggests: 
     testthat (>= 3.0.0),
-    mockery
+    mockery,
+    spelling
 Config/testthat/edition: 3
+Language: en-US

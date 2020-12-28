@@ -10,7 +10,7 @@ get_remaining_requests(api_key = Sys.getenv("THEODDS_API_KEY"))
 \item{api_key}{The API key for The Odds API -- A key can be obtained at \href{https://the-odds-api.com/}{the Odds API's website}. By default,
 \code{api_key} is set to \code{Sys.getenv("THEODDS_API_KEY")}. It is highly
 recommended to configure this environment variable before using this
-package, both for convenience and to avoid surfacing your key as plaintext
+package, both for convenience and to avoid surfacing your key as plain text
 in a script}
 }
 \value{
@@ -18,7 +18,7 @@ A tibble
 }
 \description{
 This function returns how many requests you have made for the month, and how
-many are remaining. The tiers for how many requests are alotted can be found
+many are remaining. The tiers for how many requests are allotted can be found
 at \href{https://the-odds-api.com/}{the Odds API website}
 }
 \examples{
