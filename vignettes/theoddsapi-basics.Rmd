@@ -1,0 +1,107 @@
+---
+title: "Introduction to theoddsapi"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{theoddsapi-basics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(dplyr.summarise.inform = FALSE)
+```
+
+## Inspiration
+
+theoddsapi package provides a convenient wrapper for [The Odds API](https://the-odds-api.com/), a publicly available API for getting near-real time odds for live (in-play) and upcoming sporting events for dozens of different sports leagues. 
+
+All of the functions in theoddsapi return a tidy tibble, including the principal function `get_odds`. This allows you to get the data in an ideal structure for further analysis (no mucking through a deeply nested JSON!).
+
+## Installation and Configuration
+
+Install the theoddsapi from GitHub with:
+
+``` r
+devtools::install_github("d-edison/theoddsapi")
+```
+
+After installing, it is necessary to get an API key from [The Odds API's website](https://the-odds-api.com/#get-access) (a free tier is available which grants up to 500 requests per month, and paid tiers up to 4.5M requests for $99 are available). Once you select a tier, provide your first name / email, and prove you're not a robot, your key will be emailed to you. 
+
+Once you have your API key, it is *highly recommended* to configure the R environment variable `THEODDS_API_KEY`. To do this, you can call `Sys.setenv(THEODDS_API_KEY = "<your_key>")` at the beginning of your session or directly edit your `.Renviron` file (if you don't know where this file lives, you can bring it up for editing by running`usethis::edit_r_environ()`).
+
+## Usage
+
+```{r}
+library(theoddsapi)
+```
+
+### Get Remaining Requests
+
+As a "hello world" to confirm that everything is configured correctly, there is function `get_remaining_requests` that informs you how many requests are remaining:
+
+```{r}
+get_remaining_requests()
+```
+
+### Get Sports
+
+Another helper function provided is `get_sports`, which provides all of the sports which currently are available to request odds for:
+
+```{r}
+get_sports()
+```
+
+### Get Odds
+
+The principal function of this package, `get_odds` allows you to request odds for any of the sports returned by the `get_sports` function. If called without any arguments, it returns the odds for any live contest as well as the 8 upcoming games across all sports:
+
+```{r}
+get_odds()
+```
+
+`get_odds` always returns a tibble with columns sport, commence_time, team, book, and whatever is set for the `mkt` argument (by default, "h2h").
+
+As a simple usage example, if you wanted to see the average spread across books for upcoming NBA games, you could do:
+
+```{r}
+suppressPackageStartupMessages({
+    library(dplyr)
+    library(ggplot2)
+})
+```
+
+```{r, fig.width = 7.1, fig.height = 5}
+nba_spreads <- get_odds(
+    "basketball_nba", # key field from get_sports
+    mkt = "spreads" # point spread
+)
+
+nba_spreads %>% 
+    group_by(team) %>% 
+    summarise(avg_spread = mean(spreads)) %>% 
+    ggplot(aes(
+        reorder(team, -avg_spread), 
+        avg_spread
+    )) +
+    geom_segment(aes(xend = team, yend = 0)) +
+    geom_point(size = 3, color = "darkblue") +
+    scale_color_viridis_c(guide = FALSE) +
+    coord_flip() +
+    labs(
+        title = "Upcoming NBA Spreads", 
+        x = "Team", 
+        y = "Average Spread"
+    ) +
+    theme_bw()
+```
+
+## Going Forward
+
+Immediate next steps will be to add support for American odds in the `get_odds` function (as it is supported by the API but not this package) and to prepare for submission to CRAN. If any new features are added to The Odds API itself (e.g. querying multiple sports as one request, querying one specific book), they will be added to this package. 
+
+I also welcome anyone to file an issue or submit a pull request on GitHub if you encounter an issue or have a suggestion for improvement!
