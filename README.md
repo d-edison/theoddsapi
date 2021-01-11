@@ -11,11 +11,11 @@ theoddsapi package provides a convenient wrapper for [the Odds
 API](https://the-odds-api.com/). The principal function `get_odds`
 provides a convenient, simple interface which allows you to leverage the
 API to pull odds from various different sports, books, and market types
-into nice, tidy tibbles.
+into tidy tibbles.
 
 ## Installation
 
-You can install the theoddsapi from GitHub with:
+Install the theoddsapi from GitHub with:
 
 ``` r
 devtools::install_github("d-edison/theoddsapi")
@@ -31,8 +31,8 @@ instructions to get your key emailed to you.
 
 Once you have your key it is **highly recommended** to configure the R
 environment variable `THEODDS_API_KEY`. To do this, call either
-`Sys.setenv(THEODDS_API_KEY = "<your_key>")` or edit your `.Renviron`
-file.
+`Sys.setenv(THEODDS_API_KEY = "<your_key>")` or directly edit your
+`.Renviron` file.
 
 ## Usage
 
@@ -41,42 +41,42 @@ library(theoddsapi)
 
 # get all of the sports available
 get_sports()
-#> # A tibble: 32 x 6
-#>    key            active group       details          title        has_outrights
-#>    <chr>          <chr>  <chr>       <chr>            <chr>        <chr>        
-#>  1 americanfootb~ TRUE   American F~ US College Foot~ NCAAF        FALSE        
-#>  2 americanfootb~ TRUE   American F~ US Football      NFL          FALSE        
-#>  3 aussierules_a~ TRUE   Aussie Rul~ Aussie Football  AFL          FALSE        
-#>  4 basketball_eu~ TRUE   Basketball  Basketball Euro~ Basketball ~ FALSE        
-#>  5 basketball_nba TRUE   Basketball  US Basketball    NBA          FALSE        
-#>  6 basketball_nc~ TRUE   Basketball  US College Bask~ NCAAB        FALSE        
-#>  7 cricket_big_b~ TRUE   Cricket     Big Bash League  Big Bash     FALSE        
-#>  8 cricket_test_~ TRUE   Cricket     International T~ Test Matches FALSE        
-#>  9 icehockey_nhl  TRUE   Ice Hockey  US Ice Hockey    NHL          FALSE        
-#> 10 mma_mixed_mar~ TRUE   Mixed Mart~ Mixed Martial A~ MMA          FALSE        
-#> # ... with 22 more rows
+#> # A tibble: 39 x 6
+#>    key            active group      details          title         has_outrights
+#>    <chr>          <chr>  <chr>      <chr>            <chr>         <chr>        
+#>  1 americanfootb~ TRUE   American ~ US College Foot~ NCAAF         FALSE        
+#>  2 americanfootb~ TRUE   American ~ US Football      NFL           FALSE        
+#>  3 aussierules_a~ TRUE   Aussie Ru~ Aussie Football  AFL           FALSE        
+#>  4 basketball_eu~ TRUE   Basketball Basketball Euro~ Basketball E~ FALSE        
+#>  5 basketball_nba TRUE   Basketball US Basketball    NBA           FALSE        
+#>  6 basketball_nc~ TRUE   Basketball US College Bask~ NCAAB         FALSE        
+#>  7 cricket_big_b~ TRUE   Cricket    Big Bash League  Big Bash      FALSE        
+#>  8 cricket_odi    TRUE   Cricket    One Day Interna~ One Day Inte~ FALSE        
+#>  9 cricket_test_~ TRUE   Cricket    International T~ Test Matches  FALSE        
+#> 10 icehockey_nhl  TRUE   Ice Hockey US Ice Hockey    NHL           FALSE        
+#> # ... with 29 more rows
 
 # find out how many requests are remaining
 get_remaining_requests()
 #> # A tibble: 1 x 2
 #>   requests_remaining requests_used
 #>   <chr>              <chr>        
-#> 1 406                94
+#> 1 450                50
 
 # make a request to get odds
 get_odds("basketball_nba", mkt = "spreads")
-#> # A tibble: 138 x 5
-#>    sport commence_time       team            book         spreads
-#>    <chr> <dttm>              <chr>           <chr>          <dbl>
-#>  1 NBA   2020-12-28 16:40:00 Atlanta Hawks   Caesars        -10  
-#>  2 NBA   2020-12-28 16:40:00 Detroit Pistons Caesars         10  
-#>  3 NBA   2020-12-28 16:40:00 Atlanta Hawks   BetMGM         -10.5
-#>  4 NBA   2020-12-28 16:40:00 Detroit Pistons BetMGM          10.5
-#>  5 NBA   2020-12-28 16:40:00 Atlanta Hawks   BetOnline.ag   -10  
-#>  6 NBA   2020-12-28 16:40:00 Detroit Pistons BetOnline.ag    10  
-#>  7 NBA   2020-12-28 16:40:00 Atlanta Hawks   LowVig.ag      -10  
-#>  8 NBA   2020-12-28 16:40:00 Detroit Pistons LowVig.ag       10  
-#>  9 NBA   2020-12-28 16:40:00 Atlanta Hawks   GTbets         -10  
-#> 10 NBA   2020-12-28 16:40:00 Detroit Pistons GTbets          10  
-#> # ... with 128 more rows
+#> # A tibble: 122 x 5
+#>    sport commence_time       team              book           spreads
+#>    <chr> <dttm>              <chr>             <chr>            <dbl>
+#>  1 NBA   2021-01-11 16:10:00 Charlotte Hornets Caesars           -4.5
+#>  2 NBA   2021-01-11 16:10:00 New York Knicks   Caesars            4.5
+#>  3 NBA   2021-01-11 16:10:00 Charlotte Hornets BetMGM            -4.5
+#>  4 NBA   2021-01-11 16:10:00 New York Knicks   BetMGM             4.5
+#>  5 NBA   2021-01-11 16:10:00 Charlotte Hornets Bovada            -4.5
+#>  6 NBA   2021-01-11 16:10:00 New York Knicks   Bovada             4.5
+#>  7 NBA   2021-01-11 16:10:00 Charlotte Hornets PointsBet (US)    -4.5
+#>  8 NBA   2021-01-11 16:10:00 New York Knicks   PointsBet (US)     4.5
+#>  9 NBA   2021-01-11 16:10:00 Charlotte Hornets GTbets            -4.5
+#> 10 NBA   2021-01-11 16:10:00 New York Knicks   GTbets             4.5
+#> # ... with 112 more rows
 ```
