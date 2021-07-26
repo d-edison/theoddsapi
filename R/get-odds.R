@@ -108,7 +108,7 @@ get_odds_raw <- function(sport = "upcoming",
 
     # Throw errors if query parameters aren't in the allowable
     # values for the API
-    region <- match.arg(region, c("us", "au", "uk", "au"))
+    region <- match.arg(region, c("us", "eu", "uk", "au"))
     mkt <- match.arg(mkt, c("h2h", "spreads", "totals"))
     date_format <- match.arg(date_format, c("unix", "iso"))
     odds_format <- match.arg(odds_format, "decimal") # Currently only supports decimal odds,
