@@ -51,6 +51,7 @@ get_sports <- function(api_key = Sys.getenv("THEODDS_API_KEY")) {
             names_from = "name",
             values_from = "value"
         ) %>%
-        dplyr::bind_rows()
-
+        dplyr::bind_rows() %>%
+        # to avoid a character vector of TRUE/FALSE strings.
+        mutate(active = active %>% as.logical())
 }
