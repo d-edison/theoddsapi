@@ -52,6 +52,8 @@ get_sports <- function(api_key = Sys.getenv("THEODDS_API_KEY")) {
             values_from = "value"
         ) %>%
         dplyr::bind_rows() %>%
-        # to avoid a character vector of TRUE/FALSE strings.
-        mutate(active = active %>% as.logical())
+        dplyr::mutate(
+            dplyr::across(c(active, has_outrights), as.logical)
+        )
+
 }
