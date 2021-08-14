@@ -51,6 +51,9 @@ get_sports <- function(api_key = Sys.getenv("THEODDS_API_KEY")) {
             names_from = "name",
             values_from = "value"
         ) %>%
-        dplyr::bind_rows()
+        dplyr::bind_rows() %>%
+        dplyr::mutate(
+            dplyr::across(c(active, has_outrights), as.logical)
+        )
 
 }
