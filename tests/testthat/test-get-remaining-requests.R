@@ -1,4 +1,3 @@
-
 # Error check already done in test code for get-sports-list,
 # just need to verify that this returns correct tibble
 

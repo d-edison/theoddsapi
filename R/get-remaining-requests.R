@@ -1,4 +1,3 @@
-
 #' Get the Number of Remaining Requests
 #'
 #' This function returns how many requests you have made for the month, and how
@@ -21,13 +20,11 @@
 #' \dontrun{get_remaining_requests()}
 get_remaining_requests <- function(api_key = Sys.getenv("THEODDS_API_KEY")) {
 
-    # Make the request
     res <- httr::GET(
         "https://api.the-odds-api.com/v3/sports",
         query = list(api_key = api_key)
     )
 
-    # Check for 401 status code and provide helpful error message
     if (httr::status_code(res) == 401L) {
 
         error_message <- paste(
@@ -40,7 +37,6 @@ get_remaining_requests <- function(api_key = Sys.getenv("THEODDS_API_KEY")) {
 
     }
 
-    # Rectangle the data
     out <- httr::headers(res)
 
     tibble::tibble(

@@ -1,10 +1,5 @@
-
-# Create helper internal function for rectangling odds data
-# different functions for each type of odds
 rectangle_output <- function(res, mkt = "h2h") {
 
-    # Pull out each of the metrics from
-    # the nested list
     sports <- res %>%
         purrr::map("sport_nice")
 
@@ -22,8 +17,6 @@ rectangle_output <- function(res, mkt = "h2h") {
         purrr::map_depth(2, "site_nice") %>%
         purrr::map(unlist)
 
-    # Depending on which type of request is made, pull
-    # out the relevant odds
     odds <- switch(
         mkt,
         h2h = {
@@ -52,7 +45,6 @@ rectangle_output <- function(res, mkt = "h2h") {
     len_books <- books %>% purrr::map_dbl(length)
     odds_per_book <- len_odds / len_books
 
-    # Prepare vectors for tibble
     sports <- sports %>%
         purrr::map2(len_odds, rep) %>%
         unlist()
@@ -81,7 +73,6 @@ rectangle_output <- function(res, mkt = "h2h") {
         unlist() %>%
         as.double()
 
-    # Return nice, clean tibble
     out <- tibble::tibble(
         sport = sports,
         commence_time = commence_times,
@@ -90,15 +81,12 @@ rectangle_output <- function(res, mkt = "h2h") {
         odds = odds
     )
 
-    colnames(out)[5] <- mkt # Rename to type of odds
-                            # for clarity
+    colnames(out)[5] <- mkt
+
     out
 
 }
 
-# Function for returning the raw output of the GET request
-# (as an R list parse from the JSON). Currently, this function
-# isn't exported, but may rethink that in the future
 get_odds_raw <- function(sport = "upcoming",
                          region = "us",
                          mkt = "h2h",
@@ -106,14 +94,11 @@ get_odds_raw <- function(sport = "upcoming",
                          odds_format = "decimal",
                          api_key = Sys.getenv("THEODDS_API_KEY")) {
 
-    # Throw errors if query parameters aren't in the allowable
-    # values for the API
     region <- match.arg(region, c("us", "eu", "uk", "au"))
     mkt <- match.arg(mkt, c("h2h", "spreads", "totals"))
     date_format <- match.arg(date_format, c("unix", "iso"))
     odds_format <- match.arg(odds_format, "decimal") # Currently only supports decimal odds,
                                                      # will work to add american odds in the future
-    # Make the request
     res <- httr::GET(
         "https://api.the-odds-api.com/v3/odds",
         query = list(
@@ -126,7 +111,6 @@ get_odds_raw <- function(sport = "upcoming",
         )
     )
 
-    # Check for 401 status code and provide helpful error message
     if (httr::status_code(res) == 401L) {
 
         error_message <- paste(
@@ -139,7 +123,6 @@ get_odds_raw <- function(sport = "upcoming",
 
     }
 
-    # Check for 400 status code and provide helpful error message
     if (httr::status_code(res) == 400L) {
 
         error_message <- paste(
@@ -152,7 +135,6 @@ get_odds_raw <- function(sport = "upcoming",
 
     }
 
-    # Pull out data
     res %>%
         httr::content() %>%
         purrr::pluck("data")
@@ -211,7 +193,6 @@ get_odds <- function(sport = "upcoming",
                      odds_format = "decimal",
                      api_key = Sys.getenv("THEODDS_API_KEY")) {
 
-    # Raw results list
     res <- get_odds_raw(
         sport,
         region,
@@ -221,7 +202,6 @@ get_odds <- function(sport = "upcoming",
         api_key
     )
 
-    # Rectangle the data
     tryCatch(
         rectangle_output(res, mkt = mkt),
         error = function(e) stop("Unable to transform raw output to a tibble", call. = FALSE)

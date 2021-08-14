@@ -1,4 +1,3 @@
-
 library(mockery)
 
 test_that("fails if bad API key set", {
